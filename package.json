@@ -3,6 +3,7 @@
   "dependencies": {
     "@atproto/api": "^0.13.18",
     "dotenv": "^16.4.5",
+    "formdata-node": "^6.0.3",
     "node-cron": "^3.0.3",
     "node-fetch": "^3.3.2"
   },
