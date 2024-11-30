@@ -10,6 +10,7 @@
   },
   "scripts": {
     "dev": "nodemon src/connectAndPost.js",
+    "build": "npm run build",
     "start": "node src/connectAndPost.js"
   }
 }
