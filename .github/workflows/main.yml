@@ -4,6 +4,7 @@ on:
   schedule:
     # Runs at midnight EST (5 AM UTC)
     - cron: '0 5 * * *'
+     workflow_dispatch: 
 
 jobs:
   postCountdown:
