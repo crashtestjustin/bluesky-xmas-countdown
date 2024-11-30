@@ -1,3 +1,9 @@
+import fetch, { Headers } from "node-fetch";
+
+// Polyfill Headers and fetch for the Node.js environment
+globalThis.Headers = Headers;
+globalThis.fetch = fetch;
+
 import { AtpAgent } from "@atproto/api";
 import dotenv from "dotenv";
 import { calculateDaysUntilXmas } from "./daysUntilXmas.js";
