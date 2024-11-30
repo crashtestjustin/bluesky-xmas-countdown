@@ -1,12 +1,12 @@
-import fetch, { Headers } from "node-fetch";
+import fetch, { Headers, Response, Request } from "node-fetch"; // Polyfill fetch, Headers, Response, and Request
 import { FormData } from "formdata-node"; // Polyfill FormData
-import { Response } from "node-fetch"; // Polyfill Response
 
-// Polyfill Headers, fetch, and FormData for the Node.js environment
+// Polyfill fetch, Headers, FormData, Request, and Response for the Node.js environment
 globalThis.Headers = Headers;
 globalThis.fetch = fetch;
 globalThis.FormData = FormData;
 globalThis.Response = Response;
+globalThis.Request = Request;
 
 import { AtpAgent } from "@atproto/api";
 import dotenv from "dotenv";
