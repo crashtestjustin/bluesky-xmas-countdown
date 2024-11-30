@@ -34,12 +34,16 @@ export const run = async () => {
   let text;
   if (daysUntilXmas === 0) {
     text = `Merry Christmas!🎄 ${catchPhrase}`;
+  } else if (daysUntilXmas === 1) {
+    text = `Only ${daysUntilXmas} day until Christmas!🎄 ${catchPhrase}`;
+  } else if (daysUntilXmas <= 7) {
+    text = `There's only ${daysUntilXmas} days until Christmas 👀🥳🎄! ${catchPhrase}`;
   } else if (daysUntilXmas > 60) {
-    text = `There are ${daysUntilXmas} days until Christmas!🎄 ${catchPhrase}`;
+    text = `There are ${daysUntilXmas} days until Christmas Day🎄. ${catchPhrase}`;
   } else {
     const weeksUntikXmas = (daysUntilXmas / 7).toFixed(1);
     const hoursUntilXmas = daysUntilXmas * 24;
-    text = `There are only ${daysUntilXmas} days until Christmas day 😬🥳🎄. That's ${weeksUntikXmas} weeks or ${hoursUntilXmas} hours! ${catchPhrase}`;
+    text = `There are only ${daysUntilXmas} days until Christmas day 🥳🎄. That's ${weeksUntikXmas} weeks or ${hoursUntilXmas} hours! ${catchPhrase}`;
   }
 
   await agent.post({
