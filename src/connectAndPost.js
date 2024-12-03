@@ -13,20 +13,12 @@ import dotenv from "dotenv";
 import { calculateDaysUntilXmas } from "./daysUntilXmas.js";
 import cron from "node-cron";
 import { getCatchPhrase } from "./getCatchPhrase.js";
-import { followBack } from "./followBack.js";
+import { authenticateAgent } from "./authenticateAgent.js";
 
 dotenv.config();
 
 export const run = async () => {
-  const agent = new AtpAgent({
-    service: "https://bsky.social",
-  });
-  await agent.login({
-    identifier: process.env.BLUESKY_USERNAME,
-    password: process.env.BLUESKY_PASSWORD,
-  });
-
-  console.log("connected successfully");
+  const agent = await authenticateAgent();
 
   const daysUntilXmas = calculateDaysUntilXmas();
 
@@ -35,16 +27,19 @@ export const run = async () => {
   let text;
   if (daysUntilXmas === 0) {
     text = `Merry Christmas!🎄🎉🎅🥂 ${catchPhrase}`;
-  } else if (daysUntilXmas === 1) {
-    text = `Only ${daysUntilXmas} day until Christmas!🎄 ${catchPhrase}`;
   } else if (daysUntilXmas <= 7) {
-    text = `There's only ${daysUntilXmas} days until Christmas! 👀🎄 ${catchPhrase}`;
+    const unit =
+      daysUntilXmas === 1
+        ? "day"
+        : "days"(
+            (text = `There's only ${daysUntilXmas} ${unit} until Christmas! 👀🎄 ${catchPhrase}`)
+          );
   } else if (daysUntilXmas > 60) {
     text = `There are ${daysUntilXmas} days until Christmas Day!🎄 ${catchPhrase}`;
   } else {
-    const weeksUntikXmas = (daysUntilXmas / 7).toFixed(1);
+    const weeksUntilXmas = (daysUntilXmas / 7).toFixed(1);
     const hoursUntilXmas = daysUntilXmas * 24;
-    text = `There are only ${daysUntilXmas} days until Christmas day! 🎉🎄 That's ${weeksUntikXmas} weeks or ${hoursUntilXmas} hours! ${catchPhrase}`;
+    text = `There are only ${daysUntilXmas} days until Christmas day! 🎉🎄 That's ${weeksUntilXmas} weeks or ${hoursUntilXmas} hours! ${catchPhrase}`;
   }
 
   await agent.post({
@@ -52,9 +47,6 @@ export const run = async () => {
     createdAt: new Date().toISOString(),
   });
   console.log("Post posted successfully!");
-
-  //run follow/unfollow script
-  followBack(agent);
 };
 
 run().catch(console.error);
