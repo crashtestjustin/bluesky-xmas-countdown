@@ -13,6 +13,7 @@ import dotenv from "dotenv";
 import { calculateDaysUntilXmas } from "./daysUntilXmas.js";
 import cron from "node-cron";
 import { getCatchPhrase } from "./getCatchPhrase.js";
+import { followBack } from "./followBack.js";
 
 dotenv.config();
 
@@ -51,18 +52,9 @@ export const run = async () => {
     createdAt: new Date().toISOString(),
   });
   console.log("Post posted successfully!");
+
+  //run follow/unfollow script
+  followBack(agent);
 };
 
 run().catch(console.error);
-
-// const hourPastMidnight = 3;
-
-//schedule daily post
-// cron.schedule(`0 ${hourPastMidnight} * * *`, () => {
-//   console.log(`Cron job triggered at: ${new Date().toISOString()}`);
-//   run().catch(console.error);
-// });
-
-// console.log(
-//   `Chron job scheduled. Waiting for ${hourPastMidnight} hours past midnight`
-// );
