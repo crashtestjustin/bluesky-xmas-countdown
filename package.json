@@ -11,7 +11,7 @@
     "nodemon": "^3.1.7"
   },
   "scripts": {
-    "dev": "nodemon src/connectAndPost.js",
+    "dev": "nodemon src/followBack.js",
     "build": "npm run build",
     "start": "node src/connectAndPost.js"
   }
