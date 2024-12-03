@@ -8,8 +8,6 @@ globalThis.FormData = FormData;
 globalThis.Response = Response;
 globalThis.Request = Request;
 
-// dotenv.config();
-
 export const followBack = async (agent) => {
   console.log("FB connected successfully");
 
@@ -46,5 +44,4 @@ export const followBack = async (agent) => {
       }
     }
   }
-  //   console.log(actorFollowing);
 };
