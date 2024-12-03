@@ -1,5 +1,6 @@
 import fetch, { Headers, Response, Request } from "node-fetch"; // Polyfill fetch, Headers, Response, and Request
 import { FormData } from "formdata-node"; // Polyfill FormData
+import { authenticateAgent } from "./authenticateAgent.js";
 
 // Polyfill fetch, Headers, FormData, Request, and Response for the Node.js environment
 globalThis.Headers = Headers;
@@ -8,7 +9,8 @@ globalThis.FormData = FormData;
 globalThis.Response = Response;
 globalThis.Request = Request;
 
-export const followBack = async (agent) => {
+export const followBack = async () => {
+  const agent = await authenticateAgent();
   console.log("FB connected successfully");
 
   //get followers and follow them if not following
@@ -45,3 +47,5 @@ export const followBack = async (agent) => {
     }
   }
 };
+
+followBack().catch(console.error);
