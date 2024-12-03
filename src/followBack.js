@@ -35,8 +35,6 @@ export const followBack = async () => {
   });
 
   for (const follower of actorFollowing.data.follows) {
-    console.log(follower);
-
     if (!follower.viewer.followedBy) {
       try {
         await agent.deleteFollow(follower.viewer.following);
