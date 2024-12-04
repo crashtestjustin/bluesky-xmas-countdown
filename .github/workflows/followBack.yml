@@ -2,8 +2,8 @@ name: Bluesky Follow-Back Automation
 
 on:
   schedule:
-    # Runs every 6 hours for the followBack function
-    - cron: "0 */6 * * *"
+    # Runs every 2 hours for the followBack function
+    - cron: "0 */2 * * *"
   workflow_dispatch:
 
 jobs:
