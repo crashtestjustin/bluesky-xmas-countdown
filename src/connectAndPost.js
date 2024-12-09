@@ -14,6 +14,7 @@ import { calculateDaysUntilXmas } from "./daysUntilXmas.js";
 import cron from "node-cron";
 import { getCatchPhrase } from "./getCatchPhrase.js";
 import { authenticateAgent } from "./authenticateAgent.js";
+import { RichText } from "@atproto/api";
 
 dotenv.config();
 
@@ -35,15 +36,21 @@ export const run = async () => {
             (text = `There's only ${daysUntilXmas} ${unit} until Christmas! 👀🎄 ${catchPhrase}`)
           );
   } else if (daysUntilXmas > 60) {
-    text = `There are ${daysUntilXmas} days until Christmas Day!🎄 ${catchPhrase}`;
+    text = new RichText({
+      text: `There are ${daysUntilXmas} days until #Christmas Day!🎄 ${catchPhrase}`,
+    });
   } else {
     const weeksUntilXmas = (daysUntilXmas / 7).toFixed(1);
     const hoursUntilXmas = daysUntilXmas * 24;
-    text = `There are only ${daysUntilXmas} days until Christmas day! 🎉🎄 That's ${weeksUntilXmas} weeks or ${hoursUntilXmas} hours! ${catchPhrase}`;
+    text = new RichText({
+      text: `There are only ${daysUntilXmas} days until Christmas day! 🎉🎄 That's ${weeksUntilXmas} weeks or ${hoursUntilXmas} hours! ${catchPhrase}\n\n#christmas fans rejoice! The season is upon us!🙌`,
+    });
   }
+  await text.detectFacets(agent);
 
   await agent.post({
-    text: `${text}`,
+    text: `${text.text}`,
+    facets: text.facets,
     createdAt: new Date().toISOString(),
   });
   console.log("Post posted successfully!");
