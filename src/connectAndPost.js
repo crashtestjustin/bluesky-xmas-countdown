@@ -27,14 +27,12 @@ export const run = async () => {
 
   let text;
   if (daysUntilXmas === 0) {
-    text = `Merry Christmas!🎄🎉🎅🥂 ${catchPhrase}`;
+    text = new RichText({ text: `Merry Christmas!🎄🎉🎅🥂 ${catchPhrase}` });
   } else if (daysUntilXmas <= 7) {
-    const unit =
-      daysUntilXmas === 1
-        ? "day"
-        : "days"(
-            (text = `There's only ${daysUntilXmas} ${unit} until Christmas! 👀🎄 ${catchPhrase}`)
-          );
+    const unit = daysUntilXmas === 1 ? "day" : "days";
+    text = new RichText({
+      text: `There's only ${daysUntilXmas} ${unit} until Christmas! 👀🎄 ${catchPhrase}`,
+    });
   } else if (daysUntilXmas > 60) {
     text = new RichText({
       text: `There are ${daysUntilXmas} days until #Christmas Day!🎄 ${catchPhrase}`,
